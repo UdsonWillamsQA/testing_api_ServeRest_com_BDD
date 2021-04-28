@@ -1,0 +1,27 @@
+docker run -p 3000:3000 paulogoncalvesbh/serverest:latest
+rodar o docker localmente
+
+O Gherkin segue uma sintaxe que possui algumas palavras chaves, as essenciais nesse momento são:
+
+Dado: (Given) O “Dado” seria basicamente as pré-condições do cenário.
+
+Exemplos:
+Dado que o usuário tem acesso ao sistema
+Dado que o usuário tem acesso à área administrativa
+Dado que o usuário está logado
+
+Quando (When) O “Quando” serve para descrever as ações chave que o usuário executa, ou seja, qualquer ação de interação do usuário com o sistema.
+
+Exemplos:
+Quando o usuário realiza login
+Quando o usuário cadastra um novo produto
+Quando o usuário altera uma publicação
+
+Então (Then) O “Então” visa mostrar as saídas, os resultados das ações executadas, os resultados esperados.
+
+Exemplos:
+Então os dados do usuário logado devem ser exibidos
+Então o produto é alterado com sucesso
+Então a publicação é cadastrada com sucesso
+
+
