@@ -1,11 +1,8 @@
 package suport.api;
 
 import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
-import resources.domain.Login;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 
 public class LoginApi {
 

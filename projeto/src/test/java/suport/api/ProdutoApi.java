@@ -1,8 +1,8 @@
 package suport.api;
 
-import Steps.LoginStepDefinitions;
+import stepDefinitions.LoginSteps;
 import io.restassured.response.Response;
-import resources.domain.Produto;
+import suport.domain.Produto;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -11,8 +11,8 @@ public class ProdutoApi {
 
     private final String PRODUCT_ENDPOINT = "/produtos";
 
-    public Response cadastrarTipo(Produto produto) {
-        return given().header("Authorization", LoginStepDefinitions.token).
+    public Response cadastrarProduto(Produto produto) {
+        return given().header("Authorization", LoginSteps.token).
                 body(produto).
             when().
                 post(PRODUCT_ENDPOINT);
@@ -20,7 +20,7 @@ public class ProdutoApi {
 
     public Response pegarProdutoPorId(String id_produto) {
         return given().
-                header("Authorization", LoginStepDefinitions.token).
+                header("Authorization", LoginSteps.token).
             when().
                 get(PRODUCT_ENDPOINT + "/" + id_produto);
     }
@@ -32,7 +32,7 @@ public class ProdutoApi {
     public Response atualizarProduto(String id_produto) {
         var produto = Produto.builder().nome("Bola Furada").descricao("Uma bola de futebol furada").build();
         return given().
-                header("Authorization", LoginStepDefinitions.token).
+                header("Authorization", LoginSteps.token).
                 body(produto).
             when().
                 put(PRODUCT_ENDPOINT + "/" + id_produto);
@@ -40,8 +40,8 @@ public class ProdutoApi {
 
     public Response deletarProduto(String id_produto) {
         return given().
-                header("Authorization", LoginStepDefinitions.token).
-                when().
+                header("Authorization", LoginSteps.token).
+            when().
                 delete(PRODUCT_ENDPOINT + "/" + id_produto);
     }
 }

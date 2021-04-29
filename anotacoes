@@ -24,4 +24,8 @@ Então os dados do usuário logado devem ser exibidos
 Então o produto é alterado com sucesso
 Então a publicação é cadastrada com sucesso
 
+addHeader("Authorization", token) é possivel setar certas coisas no Header na classe configs
+RestAssured.requestSpecification = new RequestSpecBuilder().addHeader("Authorization", token).setContentType(ContentType.JSON).build();
+na linha acima setamos que a request vai ter um header authrization e o que vai nele, e setamos o contenttype como json
+
 

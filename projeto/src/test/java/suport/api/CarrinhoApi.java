@@ -1,7 +1,7 @@
 package suport.api;
 
-import Steps.CarrinhoStepDefinitions;
-import Steps.LoginStepDefinitions;
+import stepDefinitions.CarrinhoSteps;
+import stepDefinitions.LoginSteps;
 import io.restassured.response.Response;
 
 import java.util.Map;
@@ -15,7 +15,7 @@ public class CarrinhoApi {
 
     public Response cadastrarCarrinho(Map carrinho) {
         return given().
-                header("Authorization", LoginStepDefinitions.token).
+                header("Authorization", LoginSteps.token).
                 body(carrinho).
             when().
                 post(CARRINHO_ENDPOINT);
@@ -28,19 +28,19 @@ public class CarrinhoApi {
 
     public Response pegarCarrinho() {
         return when().
-                get(CARRINHO_ENDPOINT + "/" + CarrinhoStepDefinitions.id_carrinho);
+                get(CARRINHO_ENDPOINT + "/" + CarrinhoSteps.id_carrinho);
     }
 
     public Response concluirCompra() {
         return given().
-                header("Authorization", LoginStepDefinitions.token).
+                header("Authorization", LoginSteps.token).
             when().
                 delete(CARRINHO_ENDPOINT + "/concluir-compra");
     }
 
     public Response cancelarCompra() {
         return given().
-                header("Authorization", LoginStepDefinitions.token).
+                header("Authorization", LoginSteps.token).
             when().
                 delete(CARRINHO_ENDPOINT + "/cancelar-compra");
     }

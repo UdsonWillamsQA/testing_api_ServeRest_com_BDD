@@ -1,7 +1,7 @@
 package suport.api;
 
 import io.restassured.response.Response;
-import resources.domain.User;
+import suport.domain.User;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -9,8 +9,6 @@ import static io.restassured.RestAssured.when;
 public class UsuarioApi {
 
     private final String USER_ENDPOINT = "/usuarios";
-    private Response retorno;
-    private String id;
 
     public Response cadastrarUsuario(User user) {
         return given().
@@ -18,22 +16,23 @@ public class UsuarioApi {
             when().
                 post(USER_ENDPOINT);
     }
-    public Response procuraUsuarios(){
+
+    public Response getAllUsers(){
         return when().
                 get(USER_ENDPOINT);
     }
 
-    public Response getPorId(String idUsario) {
+    public Response getById(String idUsario) {
         return when().
                 get(USER_ENDPOINT + "/" + idUsario);
     }
 
-    public Response deletaPorId(String idUsario) {
+    public Response deletarPorId(String idUsario) {
         return when().
                 delete(USER_ENDPOINT + "/" + idUsario);
     }
 
-    public Response alteraUsuario(String idUsario) {
+    public Response alterarUsuario(String idUsario) {
         var user = User.builder().email("udson@gmailAtualizado.com").password("teste2").build();
         return given().
                 body(user).
