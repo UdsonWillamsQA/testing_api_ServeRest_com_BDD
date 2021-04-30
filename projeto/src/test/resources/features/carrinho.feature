@@ -21,6 +21,7 @@
      Quando  o usuario tenha concluido a compra
      Entao   deve receber uma mensagem de exclusao com sucesso
 
+   @deletaProduto
    @excluirUsuario
    Cenario:  Cancelar uma compra
      Dado    que o usuario desista de fazer uma compra

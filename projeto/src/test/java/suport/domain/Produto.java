@@ -18,7 +18,7 @@ public class Produto {
     @Builder.Default
     private String preco = "15";
     @Builder.Default
-    private String descricao = "Uma bola de futebol";
+    private String descricao = " ";
     @Builder.Default
     private String quantidade = "5";
 }

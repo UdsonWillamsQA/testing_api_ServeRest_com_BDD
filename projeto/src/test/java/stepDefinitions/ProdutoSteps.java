@@ -1,13 +1,19 @@
 package stepDefinitions;
 
+import io.cucumber.gherkin.internal.com.eclipsesource.json.Json;
 import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.Assert;
 import suport.api.ProdutoApi;
 import suport.domain.Produto;
+
+import java.util.List;
+
 
 public class ProdutoSteps {
 
@@ -16,11 +22,34 @@ public class ProdutoSteps {
     private Produto produto;
     private String validacao;
     public static String id_produto;
-
-    public ProdutoSteps(){
+    private String id_dos_produtos;
+    public ProdutoSteps() {
         produtoApi = new ProdutoApi();
         produto = Produto.builder().build();
+    }
 
+    @Quando("os {word} forem enviados para cadastramento com a {word} e o {word}")
+    public void osProdutosForemEnviadosParaCadastramentoComAQuantidadeADescricaoEComOPreco(String nome, String quantidade, String preco) {
+        produto.setNome(nome);
+        produto.setQuantidade(quantidade);
+        produto.setPreco(preco);
+        response = produtoApi.cadastrarProduto(produto);
+    }
+
+    @Entao("^deve realizar o cadastro de produtos$")
+    public void deveRealizarOCadastroDeProdutos() {
+        response.then().statusCode(HttpStatus.SC_CREATED);
+        id_produto = response.jsonPath().getString("_id");
+        validacao = response.body().jsonPath().getString("message");
+        Assert.assertEquals("Cadastro realizado com sucesso", validacao);
+    }
+
+    @E("deve retornar a lista com o {int} de produtos")
+    public void deveRetornarAListaComATotalDeProdutos(Integer total) {
+        response = produtoApi.pegarListaDeProdutos();
+        validacao = response.body().jsonPath().getString("quantidade");
+
+        Assert.assertEquals(total.toString(), validacao);
     }
 
     @Quando("os dados para cadastramento de produto forem enviados")
@@ -46,9 +75,10 @@ public class ProdutoSteps {
         Assert.assertEquals(tamanho, response.body().jsonPath().getString("quantidade"));
     }
 
-    @Dado("meu produto esteja cadastrado")
+    @Dado("que o produto esteja cadastrado")
     public void meuProdutoEstejaCadastrado() {
         response = produtoApi.pegarProdutoPorId(id_produto);
+        System.out.println(id_produto);
         response.then().statusCode(HttpStatus.SC_OK);
     }
 
@@ -66,11 +96,11 @@ public class ProdutoSteps {
 
 
         response = produtoApi.pegarProdutoPorId(id_produto);
-        Assert.assertEquals("Bola Furada", response.jsonPath().getString("nome"));
+        Assert.assertEquals("BolaFurada", response.jsonPath().getString("nome"));
         Assert.assertEquals("Uma bola de futebol furada", response.jsonPath().getString("descricao"));
     }
 
-    @Quando("o usuario solicitar que um produto seja deletado pelo id")
+    /*@Quando("o usuario solicitar que um produto seja deletado pelo id")
     public void euRequisiteADelecaoDoProduto() {
         response = produtoApi.deletarProduto(id_produto);
     }
@@ -82,13 +112,35 @@ public class ProdutoSteps {
         validacao = response.body().jsonPath().getString("message");
 
         Assert.assertEquals("Registro excluído com sucesso", validacao);
-    }
-
-    @Dado("^que o produto esteja cadastrado$")
-    public void queOProdutoEstejaCadastrado() {
-    }
+    }*/
 
     @Dado("^que existam produtos cadastrados$")
     public void queExistamProdutosCadastrados() {
+    }
+
+    @Dado("^que o sistema possua produtos cadastrados$")
+    public void queOSistemaPossuaProdutosCadastrados() {
+    }
+
+    @Quando("o usuario solicitar que os {word} sejam deletados")
+    public void oUsuarioSolicitarQueOsProdutosSejamDeletadosPeloId(String uri) {
+        response = produtoApi.pegarProdutoPorUri(uri);
+        id_dos_produtos = response.body().jsonPath().getString("produtos._id");
+        id_dos_produtos = id_dos_produtos.replaceAll("\\[", "");
+        id_dos_produtos = id_dos_produtos.replaceAll("\\]", "");
+        response = produtoApi.deletarProduto(id_dos_produtos);
+    }
+
+    @Entao("o sistema deve conseguir deletar os produtos")
+    public void oSistemaDeveConseguirDeletarOsProdutos() {
+        response.then().statusCode(HttpStatus.SC_OK);
+        validacao = response.body().jsonPath().getString("message");
+        Assert.assertEquals("Registro excluído com sucesso", validacao);
+    }
+
+
+    @Entao("^exclua os dados de usuario$")
+    public void excluaOsDadosDeUsuario() {
+
     }
 }

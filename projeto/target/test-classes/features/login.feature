@@ -1,6 +1,5 @@
 #language: pt
 
-
 Funcionalidade: Efetuar Login na ServeRest
   Contexto:
     Dado   que se tenha um serviço de cadastro de usuários
