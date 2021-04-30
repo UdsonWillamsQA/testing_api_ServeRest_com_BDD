@@ -13,10 +13,6 @@ import suport.api.UsuarioApi;
 import suport.domain.Produto;
 import suport.domain.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static stepDefinitions.ProdutoSteps.id_produto;
 import static stepDefinitions.UserSteps.idUsario;
@@ -69,13 +65,8 @@ public class Configs {
         response = produtoApi.deletarProduto(id_produto);
     }
 
-    private Response excluirUsuario(){
-        return when().
-            delete("/usuarios" + "/" + idUsario);
-    }
     @After("@excluirUsuario")
     public void excluirUsuarios(){
-
         String id = when().get("/usuarios?nome=Udson").then().extract().body().jsonPath().getString("usuarios._id");
         id = id.replaceAll("\\[", "");
         id = id.replaceAll("\\]", "");

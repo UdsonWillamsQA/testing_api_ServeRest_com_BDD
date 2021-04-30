@@ -1,18 +1,14 @@
 package stepDefinitions;
 
-import io.cucumber.gherkin.internal.com.eclipsesource.json.Json;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.Assert;
 import suport.api.ProdutoApi;
 import suport.domain.Produto;
-
-import java.util.List;
 
 
 public class ProdutoSteps {

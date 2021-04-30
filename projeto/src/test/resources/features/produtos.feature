@@ -1,5 +1,6 @@
 #language: pt
 
+@tmsLink=LoginTest
 Funcionalidade: Gerenciamento dos produtos da ServeRest
 
   @criaELogaUsuario
