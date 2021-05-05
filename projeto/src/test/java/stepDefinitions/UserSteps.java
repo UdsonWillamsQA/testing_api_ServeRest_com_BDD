@@ -9,6 +9,7 @@ import org.junit.Assert;
 import suport.api.UsuarioApi;
 import suport.domain.User;
 
+import static io.restassured.RestAssured.when;
 import static java.util.Optional.empty;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -21,6 +22,7 @@ public class UserSteps {
     private User user;
     private String validacao;
     public static String idUsario;
+    private String idDelete;
 
     public UserSteps(){
         usuarioApi = new UsuarioApi();
@@ -30,6 +32,14 @@ public class UserSteps {
     @Dado("que se tenha um serviço de cadastro de usuários")
     public void euTenhaUmServiçoDeCadastroDeUsuários() {
 
+    }
+
+    @Quando("se enviar os nomes dos {word} com {word} para o cadastramento de usuario")
+    public void seEnviarOsNomesDosUsuariosComEmailParaOCadastramentoDeUsuario(String nome, String email) {
+        user.setNome(nome);
+        user.setEmail(email);
+        response = usuarioApi.cadastrarUsuario(user);
+        idUsario = response.body().jsonPath().getString("_id");
     }
 
     @Quando("se enviar os dados para cadastramento de usuario")
@@ -84,9 +94,10 @@ public class UserSteps {
         Assert.assertEquals("Registro alterado com sucesso", validacao);
     }
 
-    @Quando("^é solicitado que um usuario seja deletado pelo id$")
-    public void éSolicitadoADeleçãoDeUmUsuarioPeloId() {
-        response = usuarioApi.deletarPorId(idUsario);
+    @Quando("é solicitado que um {word} seja deletado pelo id")
+    public void eSolicitadoADeleçãoDeUmUsuarioPeloId(String nomeUsuario) {
+        idDelete = usuarioApi.getByName(nomeUsuario);
+        response = usuarioApi.deletarPorId(idDelete);
     }
 
     @Entao("o sistema deve conseguir deletar o usuario")

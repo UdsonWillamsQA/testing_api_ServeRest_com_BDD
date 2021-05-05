@@ -25,6 +25,7 @@ public class Configs {
     Response response;
     ProdutoApi produtoApi;
     Produto produto;
+    UsuarioApi usuarioApi;
 
     public Configs(){
         userApi = new UsuarioApi();
@@ -32,6 +33,7 @@ public class Configs {
         loginApi = new LoginApi();
         produtoApi = new ProdutoApi();
         produto = Produto.builder().build();
+        usuarioApi = new UsuarioApi();
     }
 
     @Before
@@ -58,15 +60,16 @@ public class Configs {
         response.then().statusCode(HttpStatus.SC_CREATED);
         id_produto = response.body().jsonPath().getString("_id");
     }
-
-    private void excluirUsuario(){
-        when().
-            delete("/usuarios" + "/" + idUsario).then().statusCode(HttpStatus.SC_OK);
+    @Before("@deletaProduto")
+    public void deletaProduto(){
+        response = produtoApi.deletarProduto(id_produto);
     }
 
     @After("@excluirUsuario")
-    public void excluirUsuarioEProduto(){
-        response = produtoApi.deletarProduto(id_produto);
-        excluirUsuario();
+    public void excluirUsuarios(){
+        String id = when().get("/usuarios?nome=Udson").then().extract().body().jsonPath().getString("usuarios._id");
+        id = id.replaceAll("\\[", "");
+        id = id.replaceAll("\\]", "");
+        usuarioApi.deletarPorId(id);
     }
 }

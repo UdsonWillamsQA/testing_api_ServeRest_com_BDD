@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -51,5 +52,12 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.12.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.12.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.12.1" level="project" />
+    <orderEntry type="library" name="Maven: io.qameta.allure:allure-cucumber-jvm:2.13.9" level="project" />
+    <orderEntry type="library" name="Maven: io.qameta.allure:allure-java-commons:2.13.9" level="project" />
+    <orderEntry type="library" name="Maven: io.qameta.allure:allure-model:2.13.9" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.30" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.tika:tika-core:1.25" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.jooq:joor-java-8:0.9.13" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: info.cukes:gherkin:2.12.2" level="project" />
   </component>
 </module>

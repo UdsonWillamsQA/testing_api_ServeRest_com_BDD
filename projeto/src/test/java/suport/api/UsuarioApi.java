@@ -38,5 +38,13 @@ public class UsuarioApi {
                 body(user).
             when().put(USER_ENDPOINT + "/" + idUsario);
     }
+
+    public String getByName(String nomeUsuario) {
+        String id = when().get(USER_ENDPOINT + "?nome=" + nomeUsuario).then().extract().body().jsonPath().getString("usuarios._id");
+        id = id.replaceAll("\\[", "");
+        id = id.replaceAll("\\]", "");
+        System.out.println(id);
+        return id;
+    }
 }
 
