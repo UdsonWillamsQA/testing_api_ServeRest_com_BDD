@@ -1,5 +1,7 @@
 # testing_api_ServeRest_com_BDD
 
+[![Badge ServeRest](https://img.shields.io/badge/API-ServeRest-green)](https://github.com/ServeRest/ServeRest/)
+
 Projeto de teste da api <a href="https://github.com/ServeRest/ServeRest">ServeRest</a> utilizando BDD
 
 O projeto de testes utiliza Maven para gerenciar as dependencias.
